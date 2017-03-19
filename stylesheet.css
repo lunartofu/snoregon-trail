@@ -1,0 +1,24 @@
+body {
+	background: #222222;
+	color: #ffffff;
+	font-family: 'Press Start 2P';
+	font-size: 16px;
+}
+
+.container {
+	width: 802px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#desc {
+	padding-top: 5px;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+a, a:visited {
+	color: #ddd;
+}

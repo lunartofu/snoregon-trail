@@ -1,0 +1,37 @@
+SNOREGON TRAIL
+
+Time passage:
+	Year:
+		Spring
+		Summer
+		Autumn
+		Winter
+
+	1 season = 4 weeks
+
+	1 week = 7 days
+
+
+	Real-Time:
+	2688 hour units = 1 year
+	if 1s per hour:
+		44 minutes
+
+	idea: real time vs prompted update
+
+Ailments
+	Physical
+		- cold
+		- flu
+		- motor accident
+		- pneumonia
+		- cancer
+	Psychiatric
+		- depression
+		- psychosis
+		- mania
+		- anxiety
+
+Procedurally generated dreams
+
+Events
