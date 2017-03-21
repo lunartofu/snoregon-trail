@@ -11,22 +11,24 @@ playState.prototype = {
 		this.weekday_names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		this.hour = 0;
 		this.minute = 0;
+		this.is_night = false;
 	},
 
 	statInit: function() {
 		this.health = 75;
 		this.mood = 100;
 		this.exhaustion = 0;
-		this.is_sleeping = false;
-		this.current_stage = ['awake', 'nrem1', 'nrem2', 'sws', 'rem'];
+		this.current_stage = 0;
 		this.current_sleep_duration = 0;
 		this.current_awake_duration = 50;
 		this.rem_cycle_count = 0;
+		this.time_in_current_cycle = 0;
 		this.adenosine = 0;
-		this.melatonin = 0;
+		this.circadian = 0;
 
 		//Penalties
 		this.sleep_debt = 0;
+		this.bad_night_of_sleep = false;
 		this.times_drunk = 0;
 		this.all_nighters = 0;
 	},
@@ -91,16 +93,17 @@ playState.prototype = {
 	updateText: function() {
 		this.date_display.setText('Week ' + String(this.week) + ' of ' + this.season_names[this.season] + ', ' + this.weekday_names[this.weekday]);
 		this.time_display.setText('Time: ' + String(this.hour < 10 ? '0' + this.hour : this.hour) + ':' + String(this.minute < 10 ? '0' + this.minute : this.minute));
-		if(this.is_sleeping)
-			this.sleep_count_display.setText('Time Asleep: ' + utils.timeInWords(this.current_sleep_duration));
-		else
+		if(this.current_stage == 0)
 			this.sleep_count_display.setText('Time Awake: ' + utils.timeInWords(this.current_awake_duration));
+		else
+			this.sleep_count_display.setText('Time Asleep: ' + utils.timeInWords(this.current_sleep_duration));
 	},
 
 	updateClock: function() {
 		this.timekeeper();
+		this.sunsetter();
 		this.updateText();
-		this.sleepHandler();
+		this.sleepCycler();
 	},
 
 	buttonClick: function() {
@@ -108,56 +111,99 @@ playState.prototype = {
 	},
 
 	buttonSleepClick: function() {
-		this.is_sleeping = true;
+		this.current_stage = 1;
+		this.current_awake_duration = 0;
 	},
 
 	buttonWakeClick: function() {
-		this.is_sleeping = false;
 		this.sleep_debt += 540 - this.current_sleep_duration;
+		this.current_sleep_duration = 0;
 		if(this.sleep_debt < 0)
 			this.sleep_debt = 0;
+		if(this.current_stage != 1)
+			this.bad_night_of_sleep = true;
+		this.current_stage = 0;
 	},
 
 	timekeeper: function() {
-		if(this.minute >= 59){
-			if(this.hour >= 23){
-				if(this.weekday > this.weekday_names.length - 2){
-					if(this.week >= this.season_length){
-						if(this.season > this.season_names.length - 2){
+		if(this.minute >= 59) {
+			if(this.hour >= 23) {
+				if(this.weekday > this.weekday_names.length - 2) {
+					if(this.week >= this.season_length) {
+						if(this.season > this.season_names.length - 2) {
 							this.season = 0;
-						} else{
+						} else {
 							this.season++;
-							}
-						this.week = 1;
-					} else{
-						this.week++;
 						}
-					this.weekday = 0;
-				} else{
-					this.weekday++;
+						this.week = 1;
+					} else {
+						this.week++;
 					}
-				this.hour = 0;
-			} else{
-				this.hour++;
+					this.weekday = 0;
+				} else {
+					this.weekday++;
 				}
-			this.minute = 0;
-		} else{
-			this.minute++;
+				this.hour = 0;
+			} else {
+				this.hour++;
 			}
+			this.minute = 0;
+		} else {
+			this.minute++;
+		}
 	},
 
-	sleepHandler: function() {
-		if(this.is_sleeping){
-			this.current_sleep_duration++;
-			this.current_awake_duration = 0;
+	sunsetter: function() {
+		if(this.season == 1) { //summer
+			if(this.hour < 5 || this.hour >= 19) {
+				this.is_night = true;
+			}
+			else {
+				this.is_night = false;
+			}
 		}
-		else{
+		else if(this.season == 3) { //winter
+			if(this.hour < 7 || this.hour >= 17) {
+				this.is.night = true;
+			}
+			else {
+				this.is_night = false;
+			}
+		}
+		else { //spring or autumn
+			if(this.hour < 6 || this.hour >= 18) {
+				this.is_night = true;
+			}
+			else {
+				this.is_night = false;
+			}
+		}
+	},
+
+	processC: function() {
+		if(this.is_night) {
+			this.circadian--;
+		}
+	},
+
+	sleepCycler: function() {
+		if(this.current_stage == 0) { //awake
 			this.current_awake_duration++;
-			this.current_sleep_duration = 0;
+			this.adenosine++;
+		}
+		else {
+			if(this.current_sleep_duration % 90 == 0 && this.current_sleep_duration != 0) {
+				this.rem_cycle_count++;
+				this.time_in_current_cycle = 0;
+				this.current_stage == 1;
+			}
+			this.current_sleep_duration++;
+			if(this.adenosine > 0)
+				this.adenosine -= 2;
 		}
 	},
 
 	fatigueCalculator: function() {
-		//sleep debt and ailment things
+		//TO-DO: interaction between Process-C and adenosine
 	}
 };

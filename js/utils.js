@@ -30,19 +30,19 @@ var utils = {
 			return 'null';
 	},
 
-	timeInWords: function(time_num){
+	timeInWords: function(time_num) {
 		if(time_num == 0)
 		return '0 minutes';
 		var hours = Math.floor(time_num / 60);
 		var minutes = time_num % 60;
 		var time_str = '';
-		if(hours > 0){
+		if(hours > 0) {
 			if(hours > 1)
 				time_str += String(hours) + ' hours and ';
 			else
 				time_str += String(hours) + ' hour and ';
 			}
-		if(minutes > 0){
+		if(minutes > 0) {
 			if(minutes > 1)
 				time_str += String(minutes) + ' minutes';
 			else
