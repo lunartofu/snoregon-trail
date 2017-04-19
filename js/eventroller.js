@@ -1,3 +1,0 @@
-var eventroller = {
-	probability: function() {}
-};
