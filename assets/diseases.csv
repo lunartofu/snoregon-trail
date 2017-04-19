@@ -1,0 +1,11 @@
+name,base_chance,health_modifier,mood_modifier,sleep_disturbance,bad_night,duration,severity
+rhinovirus,10,-10,-25,5,FALSE,120,2
+drunk,0,-5,5,25,TRUE,3,1
+influenza,5,-25,-35,25,TRUE,288,3
+cancer,1,-100,-75,45,TRUE,43800,5
+a broken limb,5,-15,-20,15,FALSE,1440,3
+depression,2,-30,-50,0,TRUE,504,4
+anxiety,2,-35,-30,60,TRUE,588,4
+psychosis,1,-40,-50,60,TRUE,588,4
+mania,1,-40,70,95,FALSE,504,4
+allergies,25,-10,-25,5,FALSE,24,1

@@ -1,0 +1,102 @@
+[
+  {
+    "name": "rhinovirus",
+    "base_chance": 10,
+    "health_modifier": -10,
+    "mood_modifier": -25,
+    "sleep_disturbance": 5,
+    "bad_night": false,
+    "duration": 120,
+    "severity": 2
+  },
+  {
+    "name": "drunk",
+    "base_chance": 0,
+    "health_modifier": -5,
+    "mood_modifier": 5,
+    "sleep_disturbance": 25,
+    "bad_night": true,
+    "duration": 3,
+    "severity": 1
+  },
+  {
+    "name": "influenza",
+    "base_chance": 5,
+    "health_modifier": -25,
+    "mood_modifier": -35,
+    "sleep_disturbance": 25,
+    "bad_night": true,
+    "duration": 288,
+    "severity": 3
+  },
+  {
+    "name": "cancer",
+    "base_chance": 1,
+    "health_modifier": -100,
+    "mood_modifier": -75,
+    "sleep_disturbance": 45,
+    "bad_night": true,
+    "duration": 43800,
+    "severity": 5
+  },
+  {
+    "name": "a broken limb",
+    "base_chance": 5,
+    "health_modifier": -15,
+    "mood_modifier": -20,
+    "sleep_disturbance": 15,
+    "bad_night": false,
+    "duration": 1440,
+    "severity": 3
+  },
+  {
+    "name": "depression",
+    "base_chance": 2,
+    "health_modifier": -30,
+    "mood_modifier": -50,
+    "sleep_disturbance": 0,
+    "bad_night": true,
+    "duration": 504,
+    "severity": 4
+  },
+  {
+    "name": "anxiety",
+    "base_chance": 2,
+    "health_modifier": -35,
+    "mood_modifier": -30,
+    "sleep_disturbance": 60,
+    "bad_night": true,
+    "duration": 588,
+    "severity": 4
+  },
+  {
+    "name": "psychosis",
+    "base_chance": 1,
+    "health_modifier": -40,
+    "mood_modifier": -50,
+    "sleep_disturbance": 60,
+    "bad_night": true,
+    "duration": 588,
+    "severity": 4
+  },
+  {
+    "name": "mania",
+    "base_chance": 1,
+    "health_modifier": -40,
+    "mood_modifier": 70,
+    "sleep_disturbance": 95,
+    "bad_night": false,
+    "duration": 504,
+    "severity": 4
+  },
+  {
+    "name": "allergies",
+    "base_chance": 25,
+    "health_modifier": -10,
+    "mood_modifier": -25,
+    "sleep_disturbance": 5,
+    "bad_night": false,
+    "duration": 24,
+    "severity": 1
+  }
+]
