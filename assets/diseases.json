@@ -1,6 +1,7 @@
 [
   {
     "name": "rhinovirus",
+    "message": "Oh no, you've caught a cold! How chilling.",
     "base_chance": 10,
     "health_modifier": -10,
     "mood_modifier": -25,
@@ -11,6 +12,7 @@
   },
   {
     "name": "drunk",
+    "message": "You swear to drunk you're not dog... Nope, you're definitely drunk.",
     "base_chance": 0,
     "health_modifier": -5,
     "mood_modifier": 5,
@@ -21,6 +23,7 @@
   },
   {
     "name": "influenza",
+    "message": "It's a plane! It's a bird! It's...avian flu? Swine flu? In the end, it's all human flu.",
     "base_chance": 5,
     "health_modifier": -25,
     "mood_modifier": -35,
@@ -31,6 +34,7 @@
   },
   {
     "name": "cancer",
+    "message": "The Internet is finally correct. You've unfortunately developed cancer.",
     "base_chance": 1,
     "health_modifier": -100,
     "mood_modifier": -75,
@@ -41,6 +45,7 @@
   },
   {
     "name": "a broken limb",
+    "message": "Everything hurts and nothing feels good, but at least you're on the mend. Mending bones.",
     "base_chance": 5,
     "health_modifier": -15,
     "mood_modifier": -20,
@@ -51,6 +56,7 @@
   },
   {
     "name": "depression",
+    "message": "you're now depressed. i don't have a clever joke for this.",
     "base_chance": 2,
     "health_modifier": -30,
     "mood_modifier": -50,
@@ -61,6 +67,7 @@
   },
   {
     "name": "anxiety",
+    "message": "YOU'RE IN A GLASS CASE OF EMOTION!!!!! NOTHING IS OKAY!!!!!",
     "base_chance": 2,
     "health_modifier": -35,
     "mood_modifier": -30,
@@ -71,6 +78,7 @@
   },
   {
     "name": "psychosis",
+    "message": "Hey-ey-ey-ey, I said hey! What's going on? Is this the real life?? Is this just fantasy???",
     "base_chance": 1,
     "health_modifier": -40,
     "mood_modifier": -50,
@@ -81,6 +89,7 @@
   },
   {
     "name": "mania",
+    "message": "EVERYTHING IS AWESOME! EVERYTHING IS COOL WHEN YOU'RE PART OF A TEAM! (IT'S NOT. HELP.)",
     "base_chance": 1,
     "health_modifier": -40,
     "mood_modifier": 70,
@@ -91,6 +100,7 @@
   },
   {
     "name": "allergies",
+    "message": "Congratulations, your immune system works! Too well! But not so well it's killing you!",
     "base_chance": 25,
     "health_modifier": -10,
     "mood_modifier": -25,
@@ -98,5 +108,16 @@
     "bad_night": false,
     "duration": 24,
     "severity": 1
+  },
+  {
+    "name": "dysentery",
+    "message": "You have dysentery. (This entire game was created so I could reference this meme.)",
+    "base_chance": 5,
+    "health_modifier": -25,
+    "mood_modifier": -25,
+    "sleep_disturbance": 25,
+    "bad_night": true,
+    "duration": 504,
+    "severity": 3
   }
 ]
