@@ -13,7 +13,7 @@ gameOverState.prototype = {
 
 		utils.addCenterAnchor(this.gameOverText);
 
-		this.button_retry = game.add.button(game.world.centerX, game.world.centerY + 96, 'button', this.start, this, 1, 2, 0);
+		this.button_retry = game.add.button(game.world.centerX, game.world.centerY - 96, 'button', this.start, this, 1, 2, 0);
 		this.button_retry_text = game.add.text(0, 3, 'RETRY?', utils.text_style);
 		this.button_retry.addChild(this.button_retry_text);
 		utils.addCenterAnchors([this.button_retry, this.button_retry_text]);

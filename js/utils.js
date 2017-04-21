@@ -4,7 +4,9 @@ var utils = {
 		fontSize: 16,
 		fontWeight: 300,
 		fill: '#FFFFFF',
-		autoRound: true
+		autoRound: true,
+		wordWrap: true,
+		wordWrapWidth: 762
 	},
 
 	title_style: {
@@ -76,5 +78,16 @@ var utils = {
 			else
 				return null;
 		})
+	},
+
+	weightedRandom: function(choices, weights) {
+		var sum = weights.reduce(function(a, b) { return a + b; }, 0);
+		var random = Math.floor(Math.random() * sum);
+		for(var i = 0; i < choices.length; i++) {
+			random -= weights[i];
+			if(random < 0)
+				return choices[i];
+		}
+		return(choices[choices.length - 1]);
 	}
 };

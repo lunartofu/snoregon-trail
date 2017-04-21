@@ -11,13 +11,12 @@ menuState.prototype = {
 		console.log('menu create');
 		this.pressStartText = game.add.text(game.world.centerX, game.world.centerY, 'Click to Begin', utils.text_style);
 		utils.addCenterAnchor(this.pressStartText, true, false);
-		console.log('is this even loading');
 
 		game.input.onDown.addOnce(this.start, this)
 	},
 
 	start: function() {
 		console.log('click');
-		game.state.start('playState');
+		game.state.start('instructionState');
 	}
 };
