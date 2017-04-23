@@ -3,10 +3,11 @@ rhinovirus,"Oh no, you've caught a cold! How chilling.",10,-10,-25,5,FALSE,120,2
 drunk,"You swear to drunk you're not dog... Nope, you're definitely drunk.",0,-5,5,25,TRUE,3,1
 influenza,"It's a plane! It's a bird! It's...avian flu? Swine flu? In the end, it's all human flu.",5,-25,-35,25,TRUE,288,3
 cancer,The Internet is finally correct. You've unfortunately developed cancer.,1,-100,-75,45,TRUE,43800,5
-a broken limb,"Everything hurts and nothing feels good, but at least you're on the mend. Mending bones.",5,-15,-20,15,FALSE,1440,3
+a broken limb,"Everything hurts and nothing feels good, but at least you're on the mend. Mending bones.",0,-15,-20,15,FALSE,1440,3
 depression,you're now depressed. i don't have a clever joke for this.,2,-30,-50,0,TRUE,504,4
 anxiety,YOU'RE IN A GLASS CASE OF EMOTION!!!!! NOTHING IS OKAY!!!!!,2,-35,-30,60,TRUE,588,4
 psychosis,"Hey-ey-ey-ey, I said hey! What's going on? Is this the real life?? Is this just fantasy???",1,-40,-50,60,TRUE,588,4
 mania,EVERYTHING IS AWESOME! EVERYTHING IS COOL WHEN YOU'RE PART OF A TEAM! (IT'S NOT. HELP.),1,-40,70,95,FALSE,504,4
 allergies,"Congratulations, your immune system works! Too well! But not so well it's killing you!",25,-10,-25,5,FALSE,24,1
 dysentery,You have dysentery. (This entire game was created so I could reference this meme.),5,-25,-25,25,TRUE,504,3
+alcoholism,"Withdrawal? Haha, what a silly idea. You're just shivering because it's cold, obviously.",0,-40,-50,60,TRUE,43800,4

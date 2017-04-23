@@ -46,7 +46,7 @@
   {
     "name": "a broken limb",
     "message": "Everything hurts and nothing feels good, but at least you're on the mend. Mending bones.",
-    "base_chance": 5,
+    "base_chance": 0,
     "health_modifier": -15,
     "mood_modifier": -20,
     "sleep_disturbance": 15,
@@ -79,7 +79,7 @@
   {
     "name": "psychosis",
     "message": "Hey-ey-ey-ey, I said hey! What's going on? Is this the real life?? Is this just fantasy???",
-    "base_chance": 1,
+    "base_chance": 2,
     "health_modifier": -40,
     "mood_modifier": -50,
     "sleep_disturbance": 60,
@@ -90,7 +90,7 @@
   {
     "name": "mania",
     "message": "EVERYTHING IS AWESOME! EVERYTHING IS COOL WHEN YOU'RE PART OF A TEAM! (IT'S NOT. HELP.)",
-    "base_chance": 1,
+    "base_chance": 2,
     "health_modifier": -40,
     "mood_modifier": 70,
     "sleep_disturbance": 95,

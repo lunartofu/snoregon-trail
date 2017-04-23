@@ -1,0 +1,18 @@
+type,message,id
+3,"You dream you're on a train and you don't know where it's going, blah blah *LOUD INCEPTION NOISE*",
+1,You have been invited out for the evening by your friends.,invite
+2,You decide to go with them.,invite_a
+2,You decide to go home instead.,invite_b
+4,You have a nightmare about clowns AND Slenderman. How unlucky.,
+3,You dream about flying cats hanging out with the Mars rovers.,
+1,"Oh no, you've gotten into an accident!",accident
+2,"Unfortunately, you sustain a fracture.",accident_a
+2,"Luckily, you walk away with minimal scrapes.",accident_b
+4,You dream about failing your high school geometry final.,
+5,You find an unlucky penny on the sidewalk.,
+5,"You have an uneventful day. …wait, is that an alpaca walking down the street?",
+5,You feel adventurous and decide to pick up a random book at the library.,
+5,You witness Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo.,
+5,You receive an e-mail from a Nigerian prince offering you a lot of money.,
+5,Someone tells you a joke about offal. It's truly awful.,
+4,You stop to smell the roses. The roses are actually giant Venus flytraps. You wake up screaming.,

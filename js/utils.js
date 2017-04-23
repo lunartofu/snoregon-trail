@@ -32,6 +32,21 @@ var utils = {
 			return 'null';
 	},
 
+	getFatigue: function(stat) {
+		if(stat > 90)
+			return 'exhausted';
+		else if(stat <= 90 && stat >= 75)
+			return 'sleepy';
+		else if(stat < 75 && stat >= 25)
+			return 'okay';
+		else if(stat < 25 && stat > 0)
+			return 'refreshed';
+		else if(stat <= 0)
+			return 'perky';
+		else
+			return 'null';
+	},
+
 	timeInWords: function(time_num) {
 		if(time_num == 0)
 		return '0 minutes';

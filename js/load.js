@@ -13,9 +13,12 @@ loadingState.prototype = {
 		game.load.image('background', 'assets/background.gif');
 		game.load.spritesheet('button', 'assets/button_spritesheet.gif', 108, 36);
 		game.load.image('bed', 'assets/bed.gif');
+		game.load.image('bed_a', 'assets/bed_active.gif');
 		game.load.image('bookshelf', 'assets/bookshelf.gif');
 		game.load.image('desk', 'assets/desk.gif');
 		game.load.image('window', 'assets/window.gif');
+		game.load.image('window_night', 'assets/window_night.gif');
+		game.load.image('nightoverlay', 'assets/night_overlay.gif');
 		game.load.image('popup', 'assets/popupbg.gif');
 		game.load.json('diseases', 'assets/diseases.json');
 		//game.load.json('events', 'assets/events.json');
