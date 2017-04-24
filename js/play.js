@@ -36,7 +36,7 @@ playState.prototype = {
 		this.prevent_events = false;
 	},
 
-	stageInit: function() {
+	stageInit: function() { //yes i know i could have just used spritesheets
 		game.add.sprite(0, 0, 'background');
 		this.bed_inactive = game.add.sprite(20, 220, 'bed');
 		this.bed_inactive.visible = false;
@@ -112,13 +112,13 @@ playState.prototype = {
 		this.all_nighters = 0;
 		this.sleep_disturbance_modifier = 1.0;
 		this.illness_modifier = 1.0;
-		this.current_ailments = ["test", "test", "test", "test", "test", "test", "test", "test"];
-		this.time_until_recovery = [];
+		this.current_ailments = ["test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"];
+		this.time_until_recovery = [1, 2, 1, 3, 5, 6, 7, 8];
 		this.prevent_events = false;
 	},
 
 	init: function() {
-		this.debug_on = false;
+		this.debug_on = true;
 		this.timeInit();
 		this.statInit();
 		this.stageInit();
@@ -186,7 +186,6 @@ playState.prototype = {
 	displayAlert: function(message) {
 		this.dialog_text.setText(message);
 		this.dialog_box.visible = true;
-		console.log(this.dialog_box);
 		game.time.events.add(Phaser.Timer.SECOND * 2, this.hideAlert, this);
 	},
 
@@ -321,9 +320,6 @@ playState.prototype = {
 			else if(this.time_in_current_cycle > 72 && this.time_in_current_cycle < 90) {
 				this.current_stage = 4; //rem
 			}
-			else{
-				console.log("something went wrong with sleepCycler");
-			}
 		}
 	},
 
@@ -343,16 +339,16 @@ playState.prototype = {
 	},
 
 	printAilments: function() { //this is the least efficient implementation of this possible but i am so tired holy crap
+		this.ailments1.setText('');
+		this.ailments2.setText('');
+		this.ailments3.setText('');
+		this.ailments4.setText('');
+		this.ailments5.setText('');
+		this.ailments6.setText('');
+		this.ailments7.setText('');
+		this.ailments8.setText('');
 		if(this.current_ailments.length == 0) {
 			this.ailments0.setText('(none)');
-			this.ailments1.setText('');
-			this.ailments2.setText('');
-			this.ailments3.setText('');
-			this.ailments4.setText('');
-			this.ailments5.setText('');
-			this.ailments6.setText('');
-			this.ailments7.setText('');
-			this.ailments8.setText('');
 		}
 		i = 0;
 		while (i < this.current_ailments.length) {
@@ -369,7 +365,7 @@ playState.prototype = {
 			else if(i == 5)
 				this.ailments5.setText(this.current_ailments[5]);
 			else if(i == 6)
-				this.ailments6.setText(this.current_ailments[7]);
+				this.ailments6.setText(this.current_ailments[6]);
 			else if(i == 7)
 				this.ailments7.setText(this.current_ailments[7]);
 			else if(i == 8)
@@ -379,6 +375,19 @@ playState.prototype = {
 	},
 
 	updateRecovery: function() {
-		//TO-DO
+		i = 0;
+		while (i < this.time_until_recovery.length) {
+			console.log(this.time_until_recovery);
+			console.log(this.current_ailments);
+			this.time_until_recovery[i]--;
+			if (this.time_until_recovery[i] <= 0) {
+				this.displayAlert("Congratulations, you have recovered from an ailment!");
+				this.time_until_recovery.splice(i, 1);
+				this.current_ailments.splice(i, 1);
+			}
+			else {
+				i++;
+			}
+		}
 	}
 };
