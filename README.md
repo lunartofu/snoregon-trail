@@ -2,7 +2,7 @@
 
 ![game screenshot](https://github.com/lunartofu/snoregon-trail/blob/master/preview.PNG)
 
-The Snoregon Trail is a game created by Tracy Lee for UC Berkeley's Spring 2017 Psychology of Sleep course. It is intended to be both educational and entertaining but may, regrettably, be neither of those things; you can judge for yourself by [http://www.tofuturtle.com/projects/psych133](playing it at this link).
+The Snoregon Trail is a game created by Tracy Lee for UC Berkeley's Spring 2017 Psychology of Sleep course. It is intended to be both educational and entertaining but may, regrettably, be neither of those things; you can judge for yourself by [playing it at this link](http://www.tofuturtle.com/projects/psych133).
 
 ## Mechanics
 By clicking the corresponding button, the player controls the sleeping patterns of a mostly-unseen character. You continue until the character dies.
