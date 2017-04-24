@@ -21,7 +21,7 @@ loadingState.prototype = {
 		game.load.image('nightoverlay', 'assets/night_overlay.gif');
 		game.load.image('popup', 'assets/popupbg.gif');
 		game.load.json('diseases', 'assets/diseases.json');
-		//game.load.json('events', 'assets/events.json');
+		game.load.json('events', 'assets/events.json');
 	},
 
 	loadFonts: function() {

@@ -2,11 +2,6 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gamebox');
 
 var bootState = function() {};
 
-/*WebFontConfig({
-    google: { families: ['Press Start 2P'] },
-    active: function() {  }
-});*/
-
 bootState.prototype = {
 	preload: function() {
 		//load loading screen assets

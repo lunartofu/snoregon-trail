@@ -15,8 +15,8 @@ playState.prototype = {
 	},
 
 	statInit: function() {
-		this.health = 75;
-		this.mood = 100;
+		this.health = 80;
+		this.mood = 80;
 		this.exhaustion = 0;
 		this.current_stage = 2;
 		this.current_sleep_duration = 495;
@@ -29,14 +29,38 @@ playState.prototype = {
 		this.bad_night_of_sleep = false;
 		this.all_nighters = 0;
 		this.sleep_disturbance_modifier = 1.0;
-		this.illness_modifier = 1.0;
+		this.illness_severity = 0;
 
 		this.current_ailments = [];
 		this.time_until_recovery = [];
 		this.prevent_events = false;
 	},
 
-	stageInit: function() { //yes i know i could have just used spritesheets
+	eventInit: function() {
+		this.diseases = game.cache.getJSON('diseases');
+		this.events = game.cache.getJSON('events');
+		this.disease_chances = [];
+		this.dreams = [];
+		this.nightmares = [];
+		this.special = [];
+		this.normal_events = [];
+		for (i = 0; i < this.diseases.length; i++) {
+			this.disease_chances.push(this.diseases[i].base_chance);
+		}
+		for (i = 0; i < this.events.length; i++) {
+			if (this.events[i].type == 3)
+				this.dreams.push(this.events[i]);
+			else if (this.events[i].type == 4)
+				this.nightmares.push(this.events[i]);
+			else if (this.events[i].type == 1)
+				this.special.push(this.events[i]);
+			else if (this.events[i].type == 5)
+				this.normal_events.push(this.events[i]);
+		}
+		console.log(this.disease_chances);
+	},
+
+	stageInit: function() { //did not have time to make actual spritesheets
 		game.add.sprite(0, 0, 'background');
 		this.bed_inactive = game.add.sprite(20, 220, 'bed');
 		this.bed_inactive.visible = false;
@@ -100,7 +124,7 @@ playState.prototype = {
 
 	debugInit: function() {
 		this.health = 75;
-		this.mood = 100;
+		this.mood = 75;
 		this.exhaustion = 0;
 		this.current_stage = 2;
 		this.current_sleep_duration = 495;
@@ -111,16 +135,17 @@ playState.prototype = {
 		this.bad_night_of_sleep = false;
 		this.all_nighters = 0;
 		this.sleep_disturbance_modifier = 1.0;
-		this.illness_modifier = 1.0;
+		this.ilness_severity = 0;
 		this.current_ailments = ["test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"];
 		this.time_until_recovery = [1, 2, 1, 3, 5, 6, 7, 8];
 		this.prevent_events = false;
 	},
 
 	init: function() {
-		this.debug_on = true;
+		this.debug_on = false;
 		this.timeInit();
 		this.statInit();
+		this.eventInit();
 		this.stageInit();
 		this.buttonInit();
 		this.textInit();
@@ -180,13 +205,15 @@ playState.prototype = {
 		this.updateText();
 		this.updateStage();
 		this.sleepCycler();
-		this.eventRoller();
+		this.updateFatigue();
+		this.staticEvents();
+		this.checkLose();
 	},
 
 	displayAlert: function(message) {
 		this.dialog_text.setText(message);
 		this.dialog_box.visible = true;
-		game.time.events.add(Phaser.Timer.SECOND * 2, this.hideAlert, this);
+		game.time.events.add(Phaser.Timer.SECOND * 5, this.hideAlert, this);
 	},
 
 	hideAlert: function() {
@@ -209,12 +236,52 @@ playState.prototype = {
 		}
 	},
 
-	eventRoller: function() {
+	staticEvents: function() {
 		if (this.weekday >= 1 && this.weekday < 7) {
 			if (this.hour == 6 && this.minute == 30) {
-				this.displayAlert("Your alarm clock is ringing.");
+				this.displayAlert("Your alarm clock starts ringing.");
 			}
 		}
+	},
+
+	selectEvent: function() {
+		if(utils.weightedRandom([true, false], [100 - this.health, this.health])) {
+			this.selectAilment();
+			this.prevent_events = true;
+		}
+		else {
+			if(this.current_stage == 0) {
+				if(this.hour > 8 && this.hour < 17) {
+					console.log("trying normal event");
+					if(utils.weightedRandom([true, false], [35, 65])) {
+						this.displayAlert(this.normal_events[Math.floor(Math.random() * this.normal_events.length)].message);
+						this.prevent_events = true;
+					}
+				}
+				if(this.hour > 16 && this.hour < 21) {
+					console.log("trying special event");
+				}
+			}
+		}
+	},
+
+	selectDream: function() {
+		if(utils.weightedRandom([true, false], [1, 99])) {
+			if(Math.random() > 0.5) {
+				this.displayAlert(this.dreams[Math.floor(Math.random() * this.dreams.length)].message);
+			}
+			else {
+				this.displayAlert(this.nightmares[Math.floor(Math.random() * this.dreams.length)].message);
+			}
+		}
+	},
+
+	selectAilment: function() {
+		console.log("pick disease");
+		selected  = utils.weightedRandom([this.diseases, this.disease_chances]);
+		this.current_ailments.push(selected.name);
+		this.time_until_recovery.push(selected.duration);
+		this.displayAlert(selected.message);
 	},
 
 	sleep: function() {
@@ -231,8 +298,11 @@ playState.prototype = {
 			this.bad_night_of_sleep = true;
 		if(!this.bad_night_of_sleep) {
 			this.mood += 25;
-			this.exhaustion -= 10;
+			this.exhaustion -= 1;
+			this.selectDream();
 		}
+		else
+			this.mood -= 5;
 		this.current_stage = 0;
 	},
 
@@ -259,6 +329,9 @@ playState.prototype = {
 			} else {
 				this.hour++;
 				this.updateRecovery();
+				if(!this.prevent_events) {
+					this.selectEvent();
+				}
 			}
 			this.minute = 0;
 		} else {
@@ -296,6 +369,9 @@ playState.prototype = {
 	sleepCycler: function() {
 		if(this.current_stage == 0) { //awake
 			this.current_awake_duration++;
+			if(this.current_awake_duration > 24 && this.current_awake_duration % 24 == 0) {
+				this.all_nighters++;
+			}
 		}
 		else {
 			if(this.current_sleep_duration % 90 == 0 && this.current_sleep_duration != 0) {
@@ -319,13 +395,21 @@ playState.prototype = {
 			}
 			else if(this.time_in_current_cycle > 72 && this.time_in_current_cycle < 90) {
 				this.current_stage = 4; //rem
+				this.selectDream();
 			}
 		}
 	},
 
-	fatigueCalculator: function() {
+	updateFatigue: function() {
 		if(this.exhaustion < 0)
 			this.exhaustion = 0;
+		if(this.exhaustion > 150)
+			this.exhausion = 150;
+
+		if(this.current_stage == 0)
+			this.exhaustion += 0.15;
+		else
+			this.exhaustion -= 0.2;
 	},
 
 	healthCalculator: function() {
@@ -388,6 +472,15 @@ playState.prototype = {
 			else {
 				i++;
 			}
+		}
+	},
+
+	checkLose: function() {
+		if (this.health <= 0 || this.current_ailments.length >= 9) {
+			this.togglePause();
+			this.button_pause.setFrames(1, 2, 0);
+			this.displayAlert("You have died.");
+			setTimeout(function() { game.state.start('gameOverState'); }, 500);
 		}
 	}
 };
