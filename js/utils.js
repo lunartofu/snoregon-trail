@@ -35,16 +35,12 @@ var utils = {
 	getFatigue: function(stat) {
 		if(stat > 90)
 			return 'exhausted';
-		else if(stat <= 90 && stat >= 75)
+		else if(stat <= 90 && stat >= 85)
 			return 'sleepy';
-		else if(stat < 75 && stat >= 25)
+		else if(stat < 85 && stat >= 25)
 			return 'okay';
-		else if(stat < 25 && stat > 0)
+		else if(stat < 25)
 			return 'refreshed';
-		else if(stat <= 0)
-			return 'perky';
-		else
-			return 'null';
 	},
 
 	timeInWords: function(time_num) {
@@ -96,6 +92,8 @@ var utils = {
 	},
 
 	weightedRandom: function(choices, weights) {
+		console.log(choices);
+		console.log(weights);
 		var sum = weights.reduce(function(a, b) { return a + b; }, 0);
 		var random = Math.floor(Math.random() * sum);
 		for(var i = 0; i < choices.length; i++) {

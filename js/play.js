@@ -2,6 +2,7 @@ var playState = function() {};
 
 playState.prototype = {
 	timeInit: function() {
+		this.loop_speed = 175;
 		this.age = 0;
 		this.season = 0;
 		this.season_names = ['Spring', 'Summer', 'Autumn', 'Winter'];
@@ -57,7 +58,6 @@ playState.prototype = {
 			else if (this.events[i].type == 5)
 				this.normal_events.push(this.events[i]);
 		}
-		console.log(this.disease_chances);
 	},
 
 	stageInit: function() { //did not have time to make actual spritesheets
@@ -116,14 +116,9 @@ playState.prototype = {
 		this.dialog_box.visible = false;
 	},
 
-	clockInit: function() {
-		this.game_paused = false;
-		this.clock = game.time.create(false);
-		this.clock.loop(175, this.updateClock, this);
-	},
-
 	debugInit: function() {
-		this.health = 75;
+		this.loop_speed = 50;
+		this.health = 25;
 		this.mood = 75;
 		this.exhaustion = 0;
 		this.current_stage = 2;
@@ -136,9 +131,15 @@ playState.prototype = {
 		this.all_nighters = 0;
 		this.sleep_disturbance_modifier = 1.0;
 		this.ilness_severity = 0;
-		this.current_ailments = ["test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"];
-		this.time_until_recovery = [1, 2, 1, 3, 5, 6, 7, 8];
+		this.current_ailments = [];
+		this.time_until_recovery = [];
 		this.prevent_events = false;
+	},
+
+	clockInit: function() {
+		this.game_paused = false;
+		this.clock = game.time.create(false);
+		this.clock.loop(this.loop_speed, this.updateClock, this);
 	},
 
 	init: function() {
@@ -149,9 +150,9 @@ playState.prototype = {
 		this.stageInit();
 		this.buttonInit();
 		this.textInit();
-		this.clockInit();
 		if(this.debug_on)
 			this.debugInit();
+		this.clockInit();
 	},
 
 	create: function() {
@@ -245,7 +246,7 @@ playState.prototype = {
 	},
 
 	selectEvent: function() {
-		if(utils.weightedRandom([true, false], [100 - this.health, this.health])) {
+		if(utils.weightedRandom([true, false], [99 - this.health, this.health - 1])) {
 			this.selectAilment();
 			this.prevent_events = true;
 		}
@@ -278,10 +279,15 @@ playState.prototype = {
 
 	selectAilment: function() {
 		console.log("pick disease");
-		selected  = utils.weightedRandom([this.diseases, this.disease_chances]);
+		console.log(this.disease_chances);
+		selected  = utils.weightedRandom(this.diseases, this.disease_chances);
 		this.current_ailments.push(selected.name);
 		this.time_until_recovery.push(selected.duration);
 		this.displayAlert(selected.message);
+		this.health += selected.health_modifier;
+		this.mood += selected.mood_modifier;
+		this.sleep_disturbance_modifier += selected.sleep_disturbance;
+		this.illness_severity += selected.severity;
 	},
 
 	sleep: function() {
@@ -297,8 +303,8 @@ playState.prototype = {
 		if(this.current_stage != 1)
 			this.bad_night_of_sleep = true;
 		if(!this.bad_night_of_sleep) {
-			this.mood += 25;
-			this.exhaustion -= 1;
+			this.mood -= 10;
+			this.exhaustion += 1;
 			this.selectDream();
 		}
 		else
@@ -381,6 +387,8 @@ playState.prototype = {
 			}
 			this.current_sleep_duration++;
 			this.time_in_current_cycle++;
+			this.health += 0.25;
+			this.mood += 0.1;
 			if(this.time_in_current_cycle <= 9) {
 				this.current_stage = 1; //nrem 1
 				if(this.time_in_current_cycle >= 3 && this.time_in_current_cycle <= 6 && utils.weightedRandom([true, false], [1*this.sleep_disturbance_modifier, 100 - 1*this.sleep_disturbance_modifier])){
@@ -407,19 +415,9 @@ playState.prototype = {
 			this.exhausion = 150;
 
 		if(this.current_stage == 0)
-			this.exhaustion += 0.15;
+			this.exhaustion += 0.1;
 		else
 			this.exhaustion -= 0.2;
-	},
-
-	healthCalculator: function() {
-		//TO-DO
-		return null;
-	},
-
-	moodCalculator: function() {
-		//TO-DO
-		return null;
 	},
 
 	printAilments: function() { //this is the least efficient implementation of this possible but i am so tired holy crap
@@ -476,7 +474,7 @@ playState.prototype = {
 	},
 
 	checkLose: function() {
-		if (this.health <= 0 || this.current_ailments.length >= 9) {
+		if (this.health <= 0 || this.current_ailments.length > 9) {
 			this.togglePause();
 			this.button_pause.setFrames(1, 2, 0);
 			this.displayAlert("You have died.");
