@@ -12,5 +12,5 @@ The code is a little messy because I originally planned for the game to have mor
 
 While all the probabilities of events are greatly exaggerated to make the game more interesting, sleep *does* affect health, both favorably and adversely.
 
-##Acknowledgements
+## Acknowledgements
 Thank you to Matt Walker, Daniel Woolridge, and all the other instructors of the course! It has been a pleasure to be your student.
